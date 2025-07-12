@@ -1,0 +1,59 @@
+# 🐍 Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.pdb
+*.pyc
+
+# 🔁 Virtual environment
+venv/
+.env
+.venv/
+env/
+ENV/
+
+# 📦 Python packaging
+*.egg
+*.egg-info/
+dist/
+build/
+*.log
+
+# 🔐 Environment and secret files
+.env
+.env.*
+
+# 🧪 Test files
+coverage/
+htmlcov/
+.tox/
+.nox/
+pytest_cache/
+
+# 🗃️ IDE/editor settings
+.vscode/
+.idea/
+.DS_Store
+
+# 🧠 Data artifacts (vector stores, uploaded CSVs)
+data/*.pkl
+data/*.csv
+!data/qa_internal_kb.csv
+!data/master_clauses.csv
+!data/HackathonInternalKnowledgeBase.csv
+
+# 🪵 Logs
+*.log
+logs/
+
+# 🔍 Lint and format
+.mypy_cache/
+.pytest_cache/
+ruff_cache/
+.prettier/
+
+# 🔥 Misc
+*.sqlite3
+*.db
+*.bak

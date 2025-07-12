@@ -1,0 +1,17 @@
+fastapi
+uvicorn
+openai
+langchain
+sentence-transformers
+faiss-cpu
+pydantic
+python-dotenv
+sqlalchemy
+joblib
+scikit-learn
+tqdm
+pandas
+python-dotenv
+python-multipart
+numpy
+pandas
