@@ -21,6 +21,8 @@ build/
 *.log
 
 # 🔐 Environment and secret files
+backend/.env
+*.env
 .env
 .env.*
 
