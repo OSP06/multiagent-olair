@@ -20,7 +20,8 @@ Technology: Powered by OpenAI embeddings and GPT-3.5 for response synthesis.
 View uploaded lease data (Q&A or Property) in a paginated, searchable table.
 Toggle between data types seamlessly.
 ![Preview](images/leaseprev1.png)
-![Preview](images/leaseprev2.png)
+![Preview](images/leasepreview2.png)
+
 Caption: Lease preview table displaying property data with pagination and search.
 
 📢 Chat Assistant
@@ -68,18 +69,58 @@ Caption: System architecture showing frontend-backend interaction and vector sto
 MultiAgent-Olair/
 ├── backend/
 │   ├── app/
+│   │   ├── __init__.py
 │   │   ├── main.py
+│   │   ├── agents/
+│   │   │   ├── chat_agent.py
+│   │   │   ├── internal_kb_agent.py
+│   │   │   └── ...
 │   │   ├── routes/
-│   │   └── ...
+│   │   │   ├── chat.py
+│   │   │   ├── crm.py
+│   │   │   ├── upload.py
+│   │   │   └── ...
+│   │   ├── utils/
+│   │   │   ├── embedding_utils.py
+│   │   │   ├── file_utils.py
+│   │   │   ├── retriever.py
+│   │   │   └── ...
+│   │   ├── crm/
+│   │   │   ├── crud.py
+│   │   │   ├── db.py
+│   │   │   ├── models.py
+│   │   │   └── schemas.py
+│   │   └── data/
+│   │       ├── qa_internal_kb.csv
+│   │       ├── HackathonInternalKnowledgeBase.csv
+│   │       ├── master_clauses.csv
+│   │       └── ... (uploaded PDF files etc.)
 │   ├── requirements.txt
 │   ├── vercel.json
 │   └── .env
 ├── frontend/
+│   ├── public/
+│   │   └── index.html
 │   ├── src/
 │   │   ├── api/
 │   │   │   └── axiosconfig.ts
-│   │   └── ...
+│   │   ├── components/
+│   │   │   ├── ChatPage.tsx
+│   │   │   ├── UploadPage.tsx
+│   │   │   ├── LeasePreviewPage.tsx
+│   │   │   ├── CRMPage.tsx
+│   │   │   └── ...
+│   │   ├── styles/
+│   │   │   ├── ChatPage.css
+│   │   │   ├── UploadPage.css
+│   │   │   ├── CRMPage.css
+│   │   │   ├── LeasePreviewPage.css
+│   │   │   └── ...
+│   │   ├── App.tsx
+│   │   └── main.tsx
 │   ├── package.json
+│   ├── tsconfig.json
+│   ├── vite.config.ts
 │   ├── vercel.json
 │   └── .env.local
 ├── images/
@@ -87,8 +128,12 @@ MultiAgent-Olair/
 │   ├── lease-preview.png
 │   ├── crm-dashboard.png
 │   ├── architecture-diagram.png
+│   └── ...
 ├── README.md
-└── .gitignore
+├── .gitignore
+└── sample_data/
+    ├── conversations.json
+    └── users.json
 
 
 🛠️ Setup Guide
