@@ -65,7 +65,8 @@ File handling for CSV/PDF ingestion
 
 Caption: System architecture showing frontend-backend interaction and vector store integration.
 
-📂 Project Structure
+<details>
+<summary><strong>📁 Project Structure</strong></summary>
 MultiAgent-Olair/
 ├── backend/
 │   ├── app/
@@ -131,9 +132,9 @@ MultiAgent-Olair/
 │   └── ...
 ├── README.md
 ├── .gitignore
-└── sample_data/
-    ├── conversations.json
-    └── users.json
+
+</details>
+
 
 
 🛠️ Setup Guide
