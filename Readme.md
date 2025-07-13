@@ -1,28 +1,70 @@
-# 🧱 MultiAgent-Olair: Real-Time AI Agents for Lease & CRM Intelligence
+🧱 MultiAgent-Olair: Real-Time AI Agents for Lease & CRM Intelligence
+MultiAgent-Olair is a full-stack platform combining a real-time lease analysis engine with internal CRM capabilities. It empowers commercial real estate professionals to upload, query, and analyze lease clauses and internal knowledge using AI agents powered by vector stores and OpenAI's GPT-3.5.
+Caption: Screenshot of the MultiAgent-Olair dashboard showing lease preview and chat assistant.
 
-MultiAgent-Olair is a full-stack platform that combines a real-time lease analysis engine with internal CRM capabilities. It empowers commercial real estate professionals to upload, query, and analyze lease clauses and internal knowledge using AI agents backed by vector stores and OpenAI.
+🚀 Features
+![Upload](images/upload.png)
 
----
+Supported Formats: Upload CSVs (qa, property, master_clauses) or PDF leases (WIP).
+Real-Time Feedback: Instant success/failure notifications.
+Storage: Files stored in /data/ directory.
 
-## 🚀 Tech Stack
+🤖 AI Agents
 
-### ✨ Frontend (React - Create React App)
+Internal KB Agent: Searches across Q&A pairs, property data, and contract clauses using vector embeddings.
+Lease Clause Agent: Performs risk and redline analysis on lease text.
+Technology: Powered by OpenAI embeddings and GPT-3.5 for response synthesis.
 
-* React 18
-* Axios (API requests)
-* Tailwind CSS + Custom CSS modules
-* React State Hooks & Conditional Rendering
+📉 Lease Preview
 
-### 🪡 Backend (FastAPI)
+View uploaded lease data (Q&A or Property) in a paginated, searchable table.
+Toggle between data types seamlessly.
+![Preview](images/leaseprev1.png)
+![Preview](images/leaseprev2.png)
+Caption: Lease preview table displaying property data with pagination and search.
 
-* FastAPI
-* SQLAlchemy ORM + SQLite (or PostgreSQL)
-* Pydantic (data validation)
-* OpenAI API (GPT-3.5 for LLM inference)
-* FAISS-like vector store for embedding search
-* File handling for CSV/PDF ingestion
+📢 Chat Assistant
 
----
+![Conversationa](images/AIchat.png)
+![](images/AIchat2.png)
+![](images/AIchat3.png)
+Conversational Interface: Ask natural language questions.
+Modes:
+General (auto vector search across all sources).
+Internal KB only.
+
+
+Sources: auto, internal, qa, property, master_clauses, lease.
+
+👥 CRM Dashboard
+
+User Management: Add, edit, or delete users.
+Conversation Tracking: View user-specific or all conversation histories.
+Assistant Replies: View or delete AI responses.
+![CRM](images/crm.png)
+![](images/crm_conv.png)
+Caption: CRM dashboard showing user management and conversation history.
+
+🛠️ Tech Stack
+✨ Frontend (React - Create React App)
+
+React 18
+Axios (API requests)
+Tailwind CSS + Custom CSS modules
+React State Hooks & Conditional Rendering
+
+🪡 Backend (FastAPI)
+
+FastAPI
+SQLAlchemy ORM + SQLite (or PostgreSQL for production)
+Pydantic (data validation)
+OpenAI API (GPT-3.5 for LLM inference)
+FAISS-like vector store for embedding search
+File handling for CSV/PDF ingestion
+
+Caption: System architecture showing frontend-backend interaction and vector store integration.
+
+📂 Project Structure
 MultiAgent-Olair/
 ├── backend/
 │   ├── app/
@@ -40,189 +82,111 @@ MultiAgent-Olair/
 │   ├── package.json
 │   ├── vercel.json
 │   └── .env.local
+├── images/
+│   ├── multiagent-olair-overview.png
+│   ├── lease-preview.png
+│   ├── crm-dashboard.png
+│   ├── architecture-diagram.png
 ├── README.md
 └── .gitignore
 
-## 🌐 Features Overview
 
-### 📄 Upload Engine
-
-* Upload CSVs (`qa`, `property`, `master_clauses`) or PDF leases (WIP)
-* Real-time feedback on success/failure
-* Store in `/data/` directory
-
-### 🤖 AI Agents
-
-* **Internal KB Agent**: Searches across:
-
-  * Q\&A pairs
-  * Property data
-  * Contract clauses
-* **Lease Clause Agent**: Performs risk & redline analysis on lease text
-* All agents use OpenAI embeddings + GPT-3.5 for synthesis
-
-### 📉 Lease Preview
-
-* View uploaded lease data (Q\&A or Property)
-* Table with pagination, search
-* Switching between data types
-
-### 📢 Chat Assistant
-
-* Conversational assistant
-* Mode toggles:
-
-  * General (auto vector search)
-  * Internal KB only
-* Uses source: `auto`, `internal`, `qa`, `property`, `master_clauses`, `lease`
-
-### 👥 CRM Dashboard
-
-* Manage Users (add/edit/delete)
-* View conversations per user
-* View/delete assistant replies
-
----
-
-## 🚧 Setup Guide
-
-### 1. Backend Setup (FastAPI)
-
-```bash
+🛠️ Setup Guide
+1. Backend Setup (FastAPI)
 cd backend
 python -m venv venv
 source venv/bin/activate  # or venv\Scripts\activate on Windows
 pip install -r requirements.txt
-
-# Run FastAPI backend
 uvicorn main:app --reload --port 8000
-```
 
-* Base URL: `http://localhost:8000`
 
-> Create `.env` file with your OpenAI key:
+Base URL: http://localhost:8000
+Environment Variables: Create a .env file:OPENAI_API_KEY=sk-xxxxx
 
-```env
-OPENAI_API_KEY=sk-xxxxx
-```
 
----
 
-### 2. Frontend Setup (React - CRA)
-
-```bash
+2. Frontend Setup (React - CRA)
 cd frontend
 npm install
 npm start
-```
 
-* App runs on: [http://localhost:3000](http://localhost:3000)
 
-#### Axios Config (`src/api/axiosconfig.ts`)
-
-```ts
-import axios from "axios";
+App URL: http://localhost:3000
+Axios Config (src/api/axiosconfig.ts):import axios from "axios";
 
 const api = axios.create({
   baseURL: "http://localhost:8000"
 });
 
 export default api;
-```
 
----
 
-## 📚 API Endpoints
 
-### Chat Routes (`/api/routes/chat`)
 
-* `POST /` - General or internal chat
-* `POST /internal` - Internal KB enhanced chat
-* `POST /lease` - Lease analysis questions
-* `POST /analyze-clause` - Risk analysis for one clause
-* `GET /health` - System health check
-* `GET /sources` - Available source types
-* `GET /kb-stats` - Stats of internal KBs
+🌐 API Endpoints
+Chat Routes (/api/routes/chat)
 
-### CRM Routes (`/api/routes/crm`)
+POST / - General or internal chat queries.
+POST /internal - Internal KB-enhanced chat.
+POST /lease - Lease analysis questions.
+POST /analyze-clause - Risk analysis for a single clause.
+GET /health - System health check.
+GET /sources - List available source types.
+GET /kb-stats - Internal KB statistics.
 
-* `GET /users` - List users
-* `POST /users` - Add user
-* `PUT /users/{id}` - Update user
-* `DELETE /users/{id}` - Delete user
-* `GET /users/{id}/conversations` - User history
-* `GET /conversations` - All conversations
-* `POST /conversations` - Add conversation
+CRM Routes (/api/routes/crm)
 
-### Upload Routes (`/api/routes/upload`)
+GET /users - List all users.
+POST /users - Add a new user.
+PUT /users/{id} - Update user details.
+DELETE /users/{id} - Delete a user.
+GET /users/{id}/conversations - View user conversation history.
+GET /conversations - List all conversations.
+POST /conversations - Add a new conversation.
 
-* `POST /docs` - Upload CSVs (qa, property, clauses)
-* `GET /internal-knowledge?type=qa|property` - View uploaded samples
+Upload Routes (/api/routes/upload)
 
----
+POST /docs - Upload CSVs (qa, property, clauses).
+GET /internal-knowledge?type=qa|property - View uploaded data samples.
 
-## 💡 Use Cases
 
-* Real estate teams asking natural questions like:
+💡 Use Cases
 
-  > "What is the annual rent for 123 Main St?"
+Real Estate Teams: Query property details, e.g., "What is the annual rent for 123 Main St?"
+Legal/Compliance: Analyze lease terms, e.g., "Show exclusivity or termination clauses."
+Internal Teams: Access operational knowledge, e.g., "How do I submit a tenant repair request?"
 
-* Legal/compliance asking:
 
-  > "Show exclusivity or termination clauses"
+🚫 Limitations
 
-* Internal teams asking:
+PDF ingestion not yet integrated with vector stores.
+No user authentication (single user_id for now).
+SQLite used for demo; switch to PostgreSQL for production.
 
-  > "How do I submit a tenant repair request?"
 
----
+🚀 Future Plans
 
-## 🚫 Limitations
+ Full PDF parsing and vector store integration.
+ Conversation logging for all AI agents.
+ Admin dashboard for clause risk management.
+ Tenant engagement bot with chat history.
 
-* PDF ingestion not yet populating vector stores
-* No user authentication
-* Single user\_id (for now)
-* SQLite for demo; replace with PostgreSQL in production
 
----
+📊 Sample Questions to Try
 
-## 🚀 Future Plans
+"What are the termination clauses?"
+"What's the broker email for 456 Pine Ave?"
+"How do I submit maintenance requests?"
 
-* ✅ PDF parsing + populate\_vector\_store
-* ✅ Conversation logging for all agents
-* ✅ Admin dashboard for clause risk management
-* ✅ Tenant engagement bot with chat history
 
----
+📅 Developed for
+Olair x AI Agents Hackathon
 
-## 📊 Sample Questions to Try
+📊 CRM Schema Diagram
+![Schema Dia](images/mermaid-diagram.svg)
 
-* "What are the termination clauses?"
-* "What's the broker email for 456 Pine Ave?"
-* "How do I submit maintenance requests?"
+📝 Notes
 
----
-
-## 📅 Developed for
-
-**Olair** x AI Agents Hackathon
-
-## 📊 CRM Schema Diagram
-
-```mermaid
-erDiagram
-    User ||--o{ Conversation : has
-    User {
-        int id PK
-        string name
-        string email
-        datetime created_at
-    }
-    Conversation {
-        int id PK
-        int user_id FK
-        string question
-        string answer
-        datetime timestamp
-    }
-```
+Ensure the .gitignore file excludes sensitive files like .env and venv/.
+For production, configure Vercel deployment settings in vercel.json for both frontend and backend.
+Test API endpoints using tools like Postman or curl before integrating with the frontend.
