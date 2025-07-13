@@ -23,6 +23,25 @@ MultiAgent-Olair is a full-stack platform that combines a real-time lease analys
 * File handling for CSV/PDF ingestion
 
 ---
+MultiAgent-Olair/
+├── backend/
+│   ├── app/
+│   │   ├── main.py
+│   │   ├── routes/
+│   │   └── ...
+│   ├── requirements.txt
+│   ├── vercel.json
+│   └── .env
+├── frontend/
+│   ├── src/
+│   │   ├── api/
+│   │   │   └── axiosconfig.ts
+│   │   └── ...
+│   ├── package.json
+│   ├── vercel.json
+│   └── .env.local
+├── README.md
+└── .gitignore
 
 ## 🌐 Features Overview
 
