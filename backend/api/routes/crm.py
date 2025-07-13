@@ -62,11 +62,37 @@ def create_conversation(convo: ConversationCreate, db: Session = Depends(get_db)
 
 @router.get("/conversations", response_model=List[schemas.ConversationOut])
 def get_all_conversations(db: Session = Depends(get_db)):
-    return crud.get_all_conversations(db)
+    raw_convos = crud.get_all_conversations(db)
+    enriched_convos = []
+    for convo in raw_convos:
+        preview = convo.question[:100] + "..." if convo.question else "No preview"
+        enriched_convos.append({
+            "id": convo.id,
+            "user_id": convo.user_id,
+            "question": convo.question,
+            "answer": convo.answer,
+            "created_at": convo.created_at,
+            "preview": preview
+        })
+    return enriched_convos
+
 
 @router.get("/users/{user_id}/conversations", response_model=List[schemas.ConversationOut])
 def get_user_conversations(user_id: int, db: Session = Depends(get_db)):
-    return crud.get_conversations_by_user(db, user_id)
+    raw_convos = crud.get_conversations_by_user(db, user_id)
+    enriched_convos = []
+    for convo in raw_convos:
+        preview = convo.question[:100] + "..." if convo.question else "No preview"
+        enriched_convos.append({
+            "id": convo.id,
+            "user_id": convo.user_id,
+            "question": convo.question,
+            "answer": convo.answer,
+            "created_at": convo.created_at,
+            "preview": preview
+        })
+    return enriched_convos
+
 
 @router.delete("/conversations/{conversation_id}")
 def delete_conversation(conversation_id: int, db: Session = Depends(get_db)):
@@ -76,6 +102,16 @@ def delete_conversation(conversation_id: int, db: Session = Depends(get_db)):
     db.delete(convo)
     db.commit()
     return {"message": f"Conversation {conversation_id} deleted"}
+
+@router.post("/reset/{user_id}")
+def reset_user_conversations(user_id: int, db: Session = Depends(get_db)):
+    conversations = db.query(models.Conversation).filter(models.Conversation.user_id == user_id).all()
+    if not conversations:
+        return {"message": f"No conversations found for user {user_id}"}
+    for convo in conversations:
+        db.delete(convo)
+    db.commit()
+    return {"message": f"✅ All conversations deleted for user {user_id}"}
 
 # ---------------- LEASE CSV (Utility) ----------------
 

@@ -26,6 +26,7 @@ class ConversationOut(BaseModel):
     question: str
     answer: str
     created_at: datetime
+    preview: Optional[str] = None
 
     class Config:
         orm_mode = True

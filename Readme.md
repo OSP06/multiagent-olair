@@ -206,3 +206,23 @@ export default api;
 ## 📅 Developed for
 
 **Olair** x AI Agents Hackathon
+
+## 📊 CRM Schema Diagram
+
+```mermaid
+erDiagram
+    User ||--o{ Conversation : has
+    User {
+        int id PK
+        string name
+        string email
+        datetime created_at
+    }
+    Conversation {
+        int id PK
+        int user_id FK
+        string question
+        string answer
+        datetime timestamp
+    }
+```
